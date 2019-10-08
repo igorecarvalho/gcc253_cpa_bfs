@@ -7,14 +7,6 @@
 
 using namespace std;
 
-//método para inicializacao das bag de acordo com o posição no vetor
-//posicao que tambem servirá como tamanho da bag
-void Bag::bag_init(int len){
-	this->backbone = new Pennant*[len]();
-	this->len = len;
-	this->largest_nonempty_index = -1;
-}
-
 //construtor com parâmentros vazio, inicializa uma bag de tamanho 20
 Bag::Bag(){
 	this->bag_init(20);
@@ -25,12 +17,11 @@ Bag::Bag(int k){
 	this->bag_init(k);
 }
 
-//método que percorre a bag e deleta o backbone de cada posição
-void Bag::bag_clear(){
-	for (int i = 0; i <= this->largest_nonempty_index; ++i)	{
-		delete this->backbone[i];
-		this->backbone[i] = NULL;
-	}
+//método para inicializacao das bag de acordo com o posição no vetor
+//posicao que tambem servirá como tamanho da bag
+void Bag::bag_init(int len){
+	this->backbone = new Pennant*[len]();
+	this->len = len;
 	this->largest_nonempty_index = -1;
 }
 
@@ -39,6 +30,16 @@ Bag::~Bag(){
 	this->bag_clear();
 	delete[] this->backbone;
 }
+
+//método que percorre a bag e deleta o backbone de cada posição
+void Bag::bag_clear(){
+	for (int i = 0; i <= this->largest_nonempty_index; i++)	{
+		delete this->backbone[i];
+		this->backbone[i] = NULL;
+	}
+	this->largest_nonempty_index = -1;
+}
+
 
 //método que insere um novo vertice na bag
 void Bag::bag_insert_vertex(int value){
@@ -54,7 +55,7 @@ void Bag::bag_insert(Pennant *&vertices){
 		this->backbone[i]->pennant_union(vertices);
 		vertices = this->backbone[i];
 		this->backbone[i] = NULL;
-		++i;
+		i++;
 	}
 
 	this->backbone[i] = vertices;
@@ -65,17 +66,17 @@ void Bag::bag_insert(Pennant *&vertices){
 
 //método que realiza o marge entre duas bags
 void Bag::bag_merge(Bag* bag){
-	int max_index = max(bag->largest_nonempty_index, this->largest_nonempty_index);
+	int max_index = std::max(bag->largest_nonempty_index, this->largest_nonempty_index);
 	Pennant *carry = NULL;
 
-	for (int i = 0; i <= max_index; ++i)	{
+	for (int i = 0; i <= max_index; i++)	{
 		Pennant::support_merge(this->backbone[i], bag->backbone[i], carry);
 	}
 
 	//caso carry seja diferente de nulo então houve um split e carry possui parte dos
 	//pennants
 	if (carry != NULL) {
-		max_index++;
+		max_index += 1;
 		//carrry é inserido na ultima posicao do backbone
 		this->backbone[max_index] = carry;
 	}

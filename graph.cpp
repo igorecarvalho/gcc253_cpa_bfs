@@ -70,7 +70,7 @@ void Graph::process_level_bag(Bag *&frontier, Bag *&new_frontier, int levels[], 
 		process_level_bag(new_bag, new_frontier, levels, level);
 		process_level_bag(frontier, new_frontier, levels, level);
 	}else{
-		stack<Vertex *> vertices;
+		std::stack<Vertex *> vertices;
 		for (int i = 0; i <= frontier->largest_nonempty_index; ++i)	{
 			if (frontier->backbone[i] != NULL) {
 				vertices.push(frontier->backbone[i]->root);

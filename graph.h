@@ -7,7 +7,7 @@ using namespace std;
 
 class Graph{
 	private:
-		vector<int> *vect_adj;
+		std::vector<int> *vect_adj;
 		int leng;
 	public:
 		Graph (int vertex);
