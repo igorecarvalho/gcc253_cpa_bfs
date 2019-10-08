@@ -19,6 +19,8 @@ class Pennant{
 		//Método que faz a divisão do Pennant e retorna
 		Pennant* pennant_split();
 
+		//Método que define onde o merge será realizado
+		static void support_merge(Pennant *&x, Pennant *&y, Pennant *&carry);
 };
 
 #endif
