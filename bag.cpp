@@ -1,4 +1,4 @@
-#include <csmath>
+#include <cmath>
 #include <cstdlib>
 #include <iostream>
 #include "bag.h"
@@ -42,7 +42,7 @@ Bag::~Bag(){
 
 //método que insere um novo vertice na bag
 void Bag::bag_insert_vertex(int value){
-	Vertex* vertex = new Vertex(value)
+	Vertex* vertex = new Vertex(value);
 	Pennant *vertices = new Pennant(vertex);
 	this->bag_insert(vertices);
 }
@@ -69,7 +69,7 @@ void Bag::bag_merge(Bag* bag){
 	Pennant *carry = NULL;
 
 	for (int i = 0; i <= max_index; ++i)	{
-		support_merge(this->backbone[i], bag->backbone[i], carry);
+		Pennant::support_merge(this->backbone[i], bag->backbone[i], carry);
 	}
 
 	//caso carry seja diferente de nulo então houve um split e carry possui parte dos
@@ -84,7 +84,7 @@ void Bag::bag_merge(Bag* bag){
 
 //método que faz o split de uma bag e retorna uma das partes
 Bag* Bag::bag_split(){
-	Bag *splited_bag = new Bag(this->k);
+	Bag *splited_bag = new Bag(this->len);
 	Pennant *first_elemment = this->backbone[0];
 	this->backbone[0] = NULL;
 
@@ -112,14 +112,14 @@ Bag* Bag::bag_split(){
 //imprime a bag
 void Bag::bag_print(){
 	cout << "Bag: { ";
-	for (int i = 0; i < this->k; ++i){
+	for (int i = 0; i < this->len; ++i){
 		cout << (this->backbone[i] != NULL) * pow(2, i) << " ";
 	}
 	cout << "}" << endl;
 }
 
 //retorna no tamanho da bag
-void Bag::bag_size(){
+int Bag::bag_size(){
 	int leng = 0;
 	for (int i = 0; i <= this->largest_nonempty_index ; ++i){
 		if(this->backbone[i] != NULL){
@@ -130,6 +130,6 @@ void Bag::bag_size(){
 }
 
 //verifica se a bag esta vazia
-bool Bag::empty(){
+bool Bag::bag_empty(){
 	return (this->largest_nonempty_index < 0);
 }

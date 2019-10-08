@@ -27,7 +27,7 @@ void Graph::BFS(int vertex){
 	//cria um vetor de niveis para alocacao de memoria com uso de memset
 	int levels[this->leng];
 	//alocação de memoria para um vetor de inteiros
-	memset(&levels, 0xFF, this->leng * sizeof(int))
+	memset(&levels, 0xFF, this->leng * sizeof(int));
 	//criação de uma fila de inteiros
 	queue<int> frontier;
 
@@ -57,16 +57,16 @@ void Graph::BFS(int vertex){
 		}
 	}
 
-	for (int i = 0; i < this->vertex; ++i)	{
+	for (int i = 0; i < this->leng; ++i)	{
 		cout << i << ": " << levels[i] << endl;
 	}
 }
 
 //método que gerencia e faz o processamento da bag
 void Graph::process_level_bag(Bag *&frontier, Bag *&new_frontier, int levels[], int level){
-	if(frontier->size() > COARSENESS){
+	if(frontier->bag_size() > COARSENESS){
 		//cria uma bag e faz o processamento de level da bag criada e das bag's recebidas
-		Bag* new_bag = frontier->split();
+		Bag* new_bag = frontier->bag_split();
 		process_level_bag(new_bag, new_frontier, levels, level);
 		process_level_bag(frontier, new_frontier, levels, level);
 	}else{
@@ -84,14 +84,14 @@ void Graph::process_level_bag(Bag *&frontier, Bag *&new_frontier, int levels[], 
 						vertices.push(current->left);
 					}
 					//se o vertice atual possui "filho" a direita
-					if(current->rigth != NULL){
+					if(current->right != NULL){
 						vertices.push(current->right);
 					}
 
 					//
 					for(vector<int>::iterator it = this->vect_adj[current->vertex].begin(), end = this->vect_adj[current->vertex].end(); it != end; ++it){
 						if(levels[*it] < 0){
-							new_frontier.bag_insert_vertex(*it);
+							new_frontier->bag_insert_vertex(*it);
 							levels[*it] = level + 1;
 						}
 					}
@@ -113,13 +113,14 @@ void Graph::BAGBFS(int vertex){
 	int level = 0;
 	levels[vertex] = level;
 
-	while (!frontier.empty()){
-		Bag new_frontier;
+	while (!frontier->bag_empty()){
+		Bag* new_frontier;
 
 		this->process_level_bag(frontier, new_frontier, levels, level);
 
 		frontier->bag_clear();
-		frontier->bag_merge(new_frontier.get_value());
+		//frontier->bag_merge(new_frontier->get_value());
+        frontier->bag_merge(new_frontier);
 
 		level++;
 	}

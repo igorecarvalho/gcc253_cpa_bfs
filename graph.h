@@ -17,6 +17,6 @@ class Graph{
 		void process_level_bag(Bag *&frontier, Bag *&new_frontier, int levels[], int level);
 		void BAGBFS(int vertex);
 
-}
+};
 
 #endif //GRAPH_H

@@ -6,7 +6,7 @@ using namespace std;
 
 //Implementação do construtor
 Pennant::Pennant(Vertex* root){
-	this-> = root;
+	this->root = root;
 }
 
 //Implementação do destrutor
@@ -17,7 +17,7 @@ Pennant::~Pennant(){
 		stack<Vertex *> vertices;
 
 		//insere o a raiz no pilha
-		vertices.push(this->root)
+		vertices.push(this->root);
 		//verifica o tamanho da pilha de vertices, caso seja maior que zero tem a
 		//necessidade de desalocar memória
 		while (vertices.size() > 0){
@@ -33,7 +33,7 @@ Pennant::~Pennant(){
 				vertices.push(current->right);
 			}
 			//deleta vertice atual
-			delete current
+			delete current;
 		}
 	}
 }
@@ -60,7 +60,7 @@ Pennant* Pennant::pennant_split(){
 	//aloca um novo pennant que sua raiz é o nó da esquerda da raiz
 	Pennant *y = new Pennant(this->root->left);
 	//no a esquerda se torna o no da direita
-	this-root->left = y->root->right;
+	this->root->left = y->root->right;
 	//no da direira se torna nulo
 	y->root->right = NULL;
 	//retorna o novo pennant

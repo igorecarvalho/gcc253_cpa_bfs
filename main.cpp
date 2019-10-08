@@ -31,6 +31,7 @@ int main(int argc, char **argv){
 
 	Graph graph(atoi(argv[1]));
 	read_graph(graph);
+    int opc;
 
 	do{
 		cout << "1 - BFS" << endl;
@@ -39,7 +40,7 @@ int main(int argc, char **argv){
 		cout << "Digite a opção desejada!" << endl;
 		cin >> opc;
 
-		auto start = high_resolution_clock::now();
+		auto start = std::chrono::high_resolution_clock::now();
 		switch (opc){
 			case 1: graph.BFS(1);
 				cout << "BFS time: ";
@@ -48,8 +49,8 @@ int main(int argc, char **argv){
 				cout << "BAGBFS time: ";
 				break;
 		}
-		auto stop = high_resolution_clock::now();
-		auto duration = duration_cast<microseconds>(stop - start);
+		auto stop = std::chrono::high_resolution_clock::now();
+		auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
 		cout << duration.count() << " microseconds" << endl;
 	} while (opc != 3);
 	return 0;
