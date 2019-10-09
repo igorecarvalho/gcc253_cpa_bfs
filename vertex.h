@@ -17,5 +17,5 @@ struct Vertex{
 	}	
 };
 
-#endif
+#endif //VERTEX_H
 

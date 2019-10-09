@@ -29,6 +29,9 @@ int main(int argc, char **argv){
 		exit(1);
 	}
 
+	std::cout << argv[1] << endl;
+	std::cout << argv[2] << endl;
+
 	Graph graph(atoi(argv[1]));
 	read_graph(graph);
     int opc;

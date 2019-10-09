@@ -3,8 +3,6 @@
 #include <list>
 #include "bag.h"
 
-using namespace std;
-
 class Graph{
 	private:
 		std::vector<int> *vect_adj;

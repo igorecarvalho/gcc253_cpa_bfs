@@ -26,4 +26,4 @@ class Bag{
 		bool bag_empty();
 };
 
-#endif
+#endif //BAG_H

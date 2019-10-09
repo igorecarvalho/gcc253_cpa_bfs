@@ -23,4 +23,4 @@ class Pennant{
 		static void support_merge(Pennant *&x, Pennant *&y, Pennant *&carry);
 };
 
-#endif
+#endif //PENNANT_H

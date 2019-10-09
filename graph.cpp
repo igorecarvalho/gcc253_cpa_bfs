@@ -5,21 +5,19 @@
 #include "graph.h"
 #include "bag.h"
 
-using namespace std;
-
 #define COARSENESS 25
 
 //construtor do grafo
 Graph::Graph(int leng){
 	this->leng = leng;
-	this->vect_adj = new vector<int>[this->leng];
+	this->vect_adj = new std::vector<int>[this->leng];
 }
 
 //método que adiciona arestas ao vertices
 void Graph::add_edge(int v, int w){
 	//push_back adiciona um elemento no final do vector
 	this->vect_adj[v].push_back(w);
-	this->vect_adj[w].push_back(v);
+	//this->vect_adj[w].push_back(v);
 }
 
 //Busca em largura tradicional
@@ -29,7 +27,7 @@ void Graph::BFS(int vertex){
 	//alocação de memoria para um vetor de inteiros
 	memset(&levels, 0xFF, this->leng * sizeof(int));
 	//criação de uma fila de inteiros
-	queue<int> frontier;
+	std::queue<int> frontier;
 
 	int level = 0;
 	//inserção na fila
@@ -44,7 +42,7 @@ void Graph::BFS(int vertex){
 		//remove o proximo elemento da fila e diminui o tamanho da fila
 		frontier.pop();
 		//realiza o "for" iterando com base nos elementos do vector
-		for (vector<int>::const_iterator it = this->vect_adj[current].begin(), end = this->vect_adj[current].end(); it != end; ++it){
+		for (std::vector<int>::const_iterator it = this->vect_adj[current].begin(), end = this->vect_adj[current].end(); it != end; ++it){
 			if (levels[*it] < 0){
 				frontier.push(*it);
 				levels[*it] = level + 1;
@@ -58,7 +56,7 @@ void Graph::BFS(int vertex){
 	}
 
 	for (int i = 0; i < this->leng; ++i)	{
-		cout << i << ": " << levels[i] << endl;
+		std::cout << i << ": " << levels[i] << std::endl;
 	}
 }
 
@@ -89,7 +87,7 @@ void Graph::process_level_bag(Bag *&frontier, Bag *&new_frontier, int levels[], 
 					}
 
 					//
-					for(vector<int>::iterator it = this->vect_adj[current->vertex].begin(), end = this->vect_adj[current->vertex].end(); it != end; ++it){
+					for(std::vector<int>::iterator it = this->vect_adj[current->vertex].begin(), end = this->vect_adj[current->vertex].end(); it != end; ++it){
 						if(levels[*it] < 0){
 							new_frontier->bag_insert_vertex(*it);
 							levels[*it] = level + 1;
@@ -126,6 +124,6 @@ void Graph::BAGBFS(int vertex){
 	}
 
 	for (int i = 0; i < this->leng; ++i){
-		cout << i << ": " << levels[i] << endl;
+		std::cout << i << ": " << levels[i] << std::endl;
 	}
 }
