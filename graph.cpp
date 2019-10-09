@@ -62,33 +62,57 @@ void Graph::BFS(int vertex){
 
 //método que gerencia e faz o processamento da bag
 void Graph::process_level_bag(Bag *&frontier, Bag *&new_frontier, int levels[], int level){
+
+	std::cout << "entrou no process_level_bagz\n";
+	
 	if(frontier->bag_size() > COARSENESS){
 		//cria uma bag e faz o processamento de level da bag criada e das bag's recebidas
 		Bag* new_bag = frontier->bag_split();
 		process_level_bag(new_bag, new_frontier, levels, level);
 		process_level_bag(frontier, new_frontier, levels, level);
 	}else{
+		std::cout << "ta menor q COARSENESS\n";
+	
 		std::stack<Vertex *> vertices;
+	
 		for (int i = 0; i <= frontier->largest_nonempty_index; ++i)	{
+	
+			std::cout << "entrou no for: " << i << std::endl;
+	
 			if (frontier->backbone[i] != NULL) {
+
+				std::cout << "frontier->backbone[i] != NULL\n";
+
 				vertices.push(frontier->backbone[i]->root);
+				std::cout << "vertices.push\n";
+
 				while(vertices.size() > 0){
+
+					std::cout << "vertices.size(): " << vertices.size() << std::endl;
+
 					//vertice atual é o vertice do topo da pilha e o remove
 					Vertex *current = vertices.top();
+					std::cout << "current\n";
+
 					vertices.pop();
+					std::cout << "pop vertices\n";
 
 					//se o vertice atual possui "filho" a esquerda
 					if(current->left != NULL){
 						vertices.push(current->left);
+						std::cout << "vertices.push(current->left)\n";
 					}
 					//se o vertice atual possui "filho" a direita
 					if(current->right != NULL){
 						vertices.push(current->right);
+						std::cout << "vertices.push(current->right)\n";
 					}
 
 					//
-					for(std::vector<int>::iterator it = this->vect_adj[current->vertex].begin(), end = this->vect_adj[current->vertex].end(); it != end; ++it){
+					for(std::vector<int>::iterator it = this->vect_adj[current->vertex].begin(), end = this->vect_adj[current->vertex].end(); it != end; it++){
+						std::cout << "for doidao\n";
 						if(levels[*it] < 0){
+							std::cout << "veio no if\n";
 							new_frontier->bag_insert_vertex(*it);
 							levels[*it] = level + 1;
 						}
@@ -102,17 +126,23 @@ void Graph::process_level_bag(Bag *&frontier, Bag *&new_frontier, int levels[], 
 void Graph::BAGBFS(int vertex){
 	//criação de um vetor de tamanho do grafo
 	int levels[this->leng];
+	//int *x;
 	memset(&levels, 0xFF, this->leng * sizeof(int));
+	std::cout << "alocou memoria" << std::endl;
 
 	//criacao de uma bag
-	Bag* frontier = new Bag();
-	Bag * buf;
+	Bag* frontier = new Bag(this->leng);
+	std::cout << "criou frontier\n";
+	//Bag * buf;
 	frontier->bag_insert_vertex(vertex);
+	std::cout << "inseriu vertice na bags\n";
 	int level = 0;
 	levels[vertex] = level;
 
 	while (!frontier->bag_empty()){
-		Bag* new_frontier;
+		std::cout << "bag nao ta vazia\n";
+		Bag* new_frontier = new Bag(this->leng);
+		std::cout << "criou nova frontier\n";
 
 		this->process_level_bag(frontier, new_frontier, levels, level);
 
