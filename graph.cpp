@@ -56,7 +56,7 @@ void Graph::BFS(int vertex){
 	}
 
 	for (int i = 0; i < this->leng; ++i)	{
-		std::cout << i << ": " << levels[i] << std::endl;
+		//std::cout << i << ": " << levels[i] << std::endl;
 	}
 }
 

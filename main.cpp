@@ -9,18 +9,27 @@
 
 using namespace std;
 
-void read_graph(Graph &graph){
+void read_graph(Graph &graph, FILE *file){
 	set <string> edge_set;
 	string edge_tuple;
 
-	int v, w;
+	int v, w, result;
 	int num_edges = 0;
 
-	while (scanf("%i %i", &v, &w) == 2){
-		if(v == w) continue;
-		graph.add_edge(v, w);
-		num_edges++;
+	if (!file){
+		printf("Problemas na abertura do arquivo\n");
 	}
+
+	while (!feof(file)){
+		//if(v == w) continue;
+		result = fscanf(file, "%d %d", &v, &w);
+		if(result){
+			//printf("%d  %d\n", v, w);
+			graph.add_edge(v, w);
+			num_edges++;
+		}
+	}
+	cout << "leitura completa" << endl;
 }
 
 int main(int argc, char **argv){
@@ -33,7 +42,11 @@ int main(int argc, char **argv){
 	std::cout << argv[2] << endl;
 
 	Graph graph(atoi(argv[1]));
-	read_graph(graph);
+
+	FILE *file;
+	file = fopen(argv[2], "rt");
+
+	read_graph(graph, file);
     int opc;
 
 	do{
