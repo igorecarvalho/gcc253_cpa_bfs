@@ -14,7 +14,7 @@ Bag::Bag(){
 
 //construtor com parametro de tamanho para criação da bag
 Bag::Bag(int k){
-	cout << "cria bag de tamanho: " << k << endl;
+	//cout << "cria bag de tamanho: " << k << endl;
 	this->bag_init(k);
 }
 
@@ -47,7 +47,7 @@ void Bag::bag_clear(){
 
 //método que insere um novo vertice na bag
 void Bag::bag_insert_vertex(int value){
-	cout << "bag_insert_vertex " << value << endl;
+	//cout << "bag_insert_vertex " << value << endl;
 	Vertex* vertex = new Vertex(value);
 	Pennant *vertices = new Pennant(vertex);
 	this->bag_insert(vertices);
@@ -55,11 +55,11 @@ void Bag::bag_insert_vertex(int value){
 
 //método que realiza a inserção dos pennants na bag
 void Bag::bag_insert(Pennant* vertices){
-	cout << "oin, bag_insert\n";
+	//cout << "oin, bag_insert\n";
 	int i = 0;
 	while (i < this->len and this->backbone[i] != NULL){
 
-		cout << "backbone != NULL " << i << endl;
+		//cout << "backbone != NULL " << i << endl;
 
 		this->backbone[i]->pennant_union(vertices);
 		vertices = this->backbone[i];
@@ -67,9 +67,9 @@ void Bag::bag_insert(Pennant* vertices){
 		i++;
 	}
 
-	cout << "aqui antes ooh: " << i << endl;
+	//cout << "aqui antes ooh: " << i << endl;
 	this->backbone[i] = vertices;
-	cout << "this->backbone[i] = vertices;\n\n";
+	//cout << "this->backbone[i] = vertices;\n\n";
 	if (i > largest_nonempty_index){
 		this->largest_nonempty_index = i;
 	}

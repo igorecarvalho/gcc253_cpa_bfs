@@ -38,8 +38,8 @@ int main(int argc, char **argv){
 		exit(1);
 	}
 
-	std::cout << argv[1] << endl;
-	std::cout << argv[2] << endl;
+	std::cout << "Número de vértices: " << argv[1] << endl;
+	std::cout << "Nome do arquivo de arestas: " << argv[2] << endl;
 
 	Graph graph(atoi(argv[1]));
 
@@ -58,10 +58,10 @@ int main(int argc, char **argv){
 
 		auto start = std::chrono::high_resolution_clock::now();
 		switch (opc){
-			case 1: graph.BFS(1);
+			case 1: graph.BFS(0);
 				cout << "BFS time: ";
 				break;
-			case 2: graph.BAGBFS(1);
+			case 2: graph.BAGBFS(0);
 				cout << "BAGBFS time: ";
 				break;
 		}
