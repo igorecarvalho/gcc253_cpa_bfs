@@ -5,7 +5,7 @@
 #include "graph.h"
 #include "bag.h"
 
-#define COARSENESS 32
+#define COARSENESS 23
 
 //construtor do grafo
 Graph::Graph(int leng){
@@ -69,6 +69,7 @@ void Graph::process_level_bag(Bag *&frontier, Bag *&new_frontier, int levels[], 
 	//std::cout << "entrou no process_level_bagz\n";
 	
 	if(frontier->bag_size() > COARSENESS){
+		//std::cout << "entrou no coarness: " << frontier->bag_size() << std::endl;
 		//cria uma bag e faz o processamento de level da bag criada e das bag's recebidas
 		Bag* new_bag = frontier->bag_split();
 		process_level_bag(new_bag, new_frontier, levels, level);
@@ -138,7 +139,7 @@ void Graph::BAGBFS(int vertex){
 	//std::cout << "criou frontier\n";
 	//Bag * buf;
 	frontier->bag_insert_vertex(vertex);
-	std::cout << "inseriu vertice na bags: " << vertex << std::endl;
+	//std::cout << "inseriu vertice na bags: " << vertex << std::endl;
 	int level = 0;
 	levels[vertex] = level;
 
