@@ -116,7 +116,7 @@ void Graph::process_level_bag(Bag *&frontier, Bag *&new_frontier, int levels[], 
 					for(std::vector<int>::iterator it = this->vect_adj[current->vertex].begin(), end = this->vect_adj[current->vertex].end(); it != end; it++){
 						//std::cout << "for doidao\n";
 						if(levels[*it] < 0){
-							//std::cout << "veio no if do it\n";
+							//std::cout << "veio no if do it: " << *it << levels[*it] << std::endl;
 							new_frontier->bag_insert_vertex(*it);
 							levels[*it] = level + 1;
 						}
