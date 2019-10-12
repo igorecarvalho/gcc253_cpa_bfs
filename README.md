@@ -17,7 +17,7 @@
 - - ```<edges_filename>``` trata-se do nome do arquivo que contém as arestas do grafo;
 
 ## Descrição das instâncias:
-- Essas instâncias são compostas de vértices e suas arestas. No formato ```v``` ```w``` onde cada ```v``` representa o vértice de origem e ```w``` o vértice de destino, formando em cada linhas as arestas do grafo.
+- Essas instâncias são compostas de vértices e suas arestas. O arquivo de instâncias é escrito no formato ```v``` ```w``` onde cada ```v``` representa o vértice de origem e ```w``` o vértice de destino, formando em cada linhas as arestas do grafo.
 
 ## Exemplo de uso:
 - ```./main 8192 instances/rmat13.txt```
